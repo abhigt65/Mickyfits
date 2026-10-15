@@ -8,7 +8,7 @@
 :root{--bg:#050607;--card:#0d1012;--line:#ffffff18;--text:#f5f7f8;--muted:#8d959d;--cyan:#4ddcff}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% 0,#132027,#050607 45%);
   color:var(--text);font-family:Inter,Arial,sans-serif}
-a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1200px,calc(100% - 28px));margin:auto}
+a{text-decoration:none;color:inherit}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1800px,calc(100% - 28px));margin:auto}
 nav{position:fixed;z-index:20;
   top:11px;
   left:50%;
@@ -125,27 +125,52 @@ section{padding:95px 0}.head{display:flex;
           color:#aeb5bb;
           padding:10px 15px}.cat.active,.cat:hover{background:#fff;color:#050607}
 
-.products{display:grid;grid-template-columns:repeat(4,1fr);
-  gap:13px}.product{border:1px solid var(--line);background:linear-gradient(150deg,#111517,#080a0b);
-    border-radius:21px;
-    padding:9px;
-    transition:.25s;
-    transform-style:preserve-3d}.product:hover{border-color:#4ddcff66;
-      box-shadow:0 25px 65px #0008}.product .visual{height:315px}.info{padding:12px 4px}.row{display:flex;
-      justify-content:space-between;gap:10px}.info h3{font-size:14px;
-        margin:0 0 5px}.info p{font-size:12px;color:var(--muted);
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .product{border:1px solid var(--line);background:linear-gradient(150deg,#111517,#080a0b);
+    border-radius:16px;
+    padding: 7px;
+    transition:.2s;
+    transform-style:preserve-3d;
+    display:flex;
+    flex-direction:column;
+  }
+    .product:hover{border-color:#4ddcff66;
+      box-shadow:0 25px 65px #0008}
+      .product .visual{height:220px}
+      .info{padding:8px 3px;
+      display:flex;
+      flex-direction:column;
+      flex: 1;
+    }
+      .row{display:flex;
+      justify-content:space-between;gap:10px}.info h3{font-size:12px;
+        margin:0 0 4px}.info p{font-size:11px;color:var(--muted);
           margin:0}.heart{border:0;
             background:none;
             color:#a3aab0;
-            font-size:20px}.view{margin-top:12px;
+            font-size:20px}
+            .view{margin-top: auto;
+              padding-top: 12px;
+              gap: 5px;
               display:flex;
               justify-content:space-between;
-              align-items:center}.miniBtn{border:1px solid var(--line);
+              align-items:center;
+              min-height:48px
+            }
+              .miniBtn{
+                border:1px solid var(--line);
                 background:#111;
                 color:#fff;
                 border-radius:10px;
-                padding:8px 10px;
-                font-size:11px}
+                padding:7px 5px;
+                font-size:10px;
+                white-space:nowrap;
+              }
 .editorial{display:grid;
   grid-template-columns:1.2fr .8fr;
   gap:14px}.edit{min-height:520px;
@@ -197,7 +222,10 @@ footer{border-top:1px solid var(--line);
 .modal,.side{position:fixed;
   inset:0;z-index:50;display:none;background:#000b;backdrop-filter:blur(10px)}.modal.open,.side.open{display:block}.detail{width:min(1000px,calc(100% - 24px));margin:45px auto;background:#0b0d0f;border:1px solid var(--line);border-radius:26px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.detail .visual{height:570px}.detailText{padding:25px}.detailText h2{font-size:clamp(40px,5vw,70px);line-height:.9;letter-spacing:-.07em;margin:10px 0}.detailText p{color:var(--muted);line-height:1.7}.close{float:right;border:1px solid var(--line);background:#111;color:#fff;border-radius:10px;padding:8px 11px}.affiliate{margin-top:25px;display:flex;gap:8px;flex-wrap:wrap}.note{font-size:11px;color:#727a82;margin-top:12px}
 .sidebox{position:absolute;right:0;top:0;height:100%;width:min(430px,100%);background:#0b0d0f;border-left:1px solid var(--line);padding:24px;overflow:auto}.wishitem{display:flex;gap:12px;border-bottom:1px solid var(--line);padding:13px 0}.mini{width:70px;height:80px;border-radius:11px;background:#15191b;display:grid;place-items:center}.empty{color:var(--muted);padding:25px 0}.toast{position:fixed;z-index:100;left:50%;bottom:24px;transform:translate(-50%,25px);opacity:0;background:#fff;color:#050607;padding:11px 16px;border-radius:10px;font-weight:700;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:900px){.links{display:none}.products{grid-template-columns:repeat(2,1fr)}.editorial{grid-template-columns:1fr}.detail{grid-template-columns:1fr}.detail .visual{height:400px}.stage .float{width:160px;height:220px}.stage .float:nth-child(2){width:185px;height:250px}.stage .visual{height:145px}.stage .float:nth-child(2) .visual{height:175px}}
+@media(max-width:900px){
+  .links{display:none}
+  .products{grid-template-columns: repeat(6, minmax(0, 1fr));}
+  .editorial{grid-template-columns:1fr}.detail{grid-template-columns:1fr}.detail .visual{height:400px}.stage .float{width:160px;height:220px}.stage .float:nth-child(2){width:185px;height:250px}.stage .visual{height:145px}.stage .float:nth-child(2) .visual{height:175px}}
 @media(max-width:560px){.products{gap:8px}.product .visual{height:235px}.head{display:block}.head p{margin-top:15px}.stage .float:nth-child(1){left:-7%}.stage .float:nth-child(3){right:-7%}.stage .float:nth-child(2){bottom:45px}.news{padding:35px 16px}.email{flex-direction:column}}
 </style>
 </head>
@@ -258,53 +286,41 @@ footer{border-top:1px solid var(--line);
 
 <script>
 const products=[
-{id:1,name:"T-Shirt + Pant Combo",cat:"Combo",price:360 + 575 ,type:"Combo",tag:"COMBO / 01",images:"images/Combo/5.2.png",url:"https://ajiio.co/aUGeFt",url2:"https://ajiio.co/cVuMcI",product1Name:"Henley-Neck T-Shirt",product1Price:360,product2Name:"Matching Pant",product2Price:575},
-{id:2,name:"Casual Shirt + Lycra combo",cat:"Combo",price:498 + 463 ,type:"Combo",tag:"Combo / 02",images:"images/Combo/1.png",url:"https://fkrt.co/IY9PkU",url2:"https://fkrt.co/BAEHGD",product1Name:"DEELMO Casual shirt ",product1Price:498,product2Name:"Lycra pant",product2Price:463},
-{id:3,name:"Striped Shirt + Gurkha pant",cat:"Combo",price:317 + 650,type:"Combo",tag:"Combo / 03",images:"images/Combo/4.2.png",url:"https://fkrt.co/CCOABQ", url2:"https://fkrt.co/e9it0J", product1Name:"Striped shirt ",product1Price:317,product2Name:"Gurkha pant",product2Price:650},
-{id:4,name:"Straight Fit jean",cat:"Pants",price:406,type:"Pant",tag:"Zaysh/ 01",images:"images/pant/Zaysh 01.png",url:"https://fkrt.co/p62V5D"},
-{id:5,name:"Jump cut printed ",cat:"T-Shirts",price:357,type:"T-Shirts",tag:"FRISKE KNITS/ 01",images:"images/tshirt/3.png", url:"https://myntr.in/YHE7xZ"},
-{id:6,name:"Jump Cut Los Angeles",cat:"T-Shirts",price:409,type:"T-Shirt",tag:"FRISKE KNITS/ 02",images:"images/tshirt/4.png",url:"https://myntr.in/KCJzse"},
-{id:7,name:"Jump cut Henly Neck",cat:"T-Shirts",price:397,type:"T-Shirts",tag:"FRISKE KNITS / 03",images:"images/tshirt/2.png", url:"https://fkrt.co/wmUzas"},
-{id:8,name:"Jump Cut Polo collar",cat:"T-Shirts",price:330,type:"T-Shirts",tag:"FRISKE KNITS / 04",images:"images/tshirt/1.png",url:"https://myntr.in/GXf1WN"},
-{id:9,name:"Alloy Rhodium Bracelet",cat:"Accessories",price:167,type:"Accessories",tag:"Nidhi Emporium / 01",images:"images/acc/1b.png",url:"https://fkrt.co/UAimuN"},
-{id:10,name:"Alloy Bracelet",cat:"Accessories",price:156,type:"Accessories",tag:"Skycart / 01",images:"images/acc/2b.png",url:"https://fkrt.co/LKrd8H"},
-{id:11,name:"4 Silver Antique Silver-Plated Link Bracelet",cat:"Accessories",price:356,type:"Accessories",tag:"Skycast x Revolte / 01",images:"images/acc/3b.png",url:"https://myntr.in/zjkysz"},
-{id:12,name:"Silver Bracelet",cat:"Accessories",price:350,type:"Accessories",tag:"Skycast x Revlote / 02",images:"images/acc/4b.png",url:"https://myntr.in/jNt6P9"},
-{id:13,name:"Silver-Plated Link Bracelet",cat:"Accessories",price:227,type:"Accessories",tag:"StyleCast x Revolte / 04",images:"images/acc/5b.png",url:"https://myntr.in/KrLtCR"},
-{id:14,name:"Silver-chain Bracelet",cat:"Accessories",price:199,type:"Accessories",tag:"Carlton London / 01",images:"images/acc/6b.png",url:"https://myntr.in/OLyxb7"},
-{id:15,name:"Silver-Plated Bracelet",cat:"Accessories",price: 599,type:"Accessories",tag:"SALTY / 01",images:"images/acc/7b.png",url:"https://7myntr.in/RuwSPJ"},
-{id:16,name:"Silver-Plated Bracelet",cat:"Accessories",price: 125,type:"Accessories",tag:"SALTY / 01",images:"images/acc/8b.png",url:"https://fkrt.co/NxELk8"},
+{id:1,name:"T-Shirt + Pant Combo",cat:"Combo",price:360 + 575 ,type:"Combo",images:"images/Combo/5.2.png",url:"https://ajiio.co/aUGeFt",url2:"https://ajiio.co/cVuMcI",product1Name:"Henley-Neck T-Shirt",product1Price:360,product2Name:"Matching Pant",product2Price:575},
+{id:2,name:"Casual Shirt + Lycra combo",cat:"Combo",price:498 + 463 ,type:"Combo",images:"images/Combo/1.png",url:"https://fkrt.co/IY9PkU",url2:"https://fkrt.co/BAEHGD",product1Name:"DEELMO Casual shirt ",product1Price:498,product2Name:"Lycra pant",product2Price:463},
+{id:3,name:"Striped Shirt + Gurkha pant",cat:"Combo",price:317 + 650,type:"Combo",images:"images/Combo/4.2.png",url:"https://fkrt.co/CCOABQ", url2:"https://fkrt.co/e9it0J", product1Name:"Striped shirt ",product1Price:317,product2Name:"Gurkha pant",product2Price:650},
+{id:4,name:"Straight Fit jean",cat:"Pants",price:406,type:"Pant",images:"images/pant/Zaysh 01.png",url:"https://fkrt.co/p62V5D"},
+{id:5,name:"Jump cut printed ",cat:"T-Shirts",price:357,type:"T-Shirts",images:"images/tshirt/3.png", url:"https://myntr.in/YHE7xZ"},
+{id:6,name:"Jump Cut Los Angeles",cat:"T-Shirts",price:409,type:"T-Shirt",images:"images/tshirt/4.png",url:" https://myntr.in/KCJzse"},
+{id:7,name:"Jump cut Henly Neck",cat:"T-Shirts",price:397,type:"T-Shirts",images:"images/tshirt/2.png", url:"https://fkrt.co/wmUzas"},
+{id:8,name:"Jump Cut Polo collar",cat:"T-Shirts",price:330,type:"T-Shirts",images:"images/tshirt/1.png",url:"https://myntr.in/GXf1WN"},
+{id:9,name:"Alloy Rhodium Bracelet",cat:"Accessories",price:167,type:"Accessories",images:"images/acc/1b.png",url:"https://fkrt.co/UAimuN"},
+{id:10,name:"Alloy Bracelet",cat:"Accessories",price:156,type:"Accessories",images:"images/acc/2b.png",url:"https://fkrt.co/LKrd8H"},
+{id:11,name:"4 Silver Antique Silver-Plated Link Bracelet",cat:"Accessories",price:356,type:"Accessories",images:"images/acc/3b.png",url:"https://myntr.in/zjkysz"},
+{id:12,name:"Silver Bracelet",cat:"Accessories",price:350,type:"Accessories",images:"images/acc/4b.png",url:"https://myntr.in/jNt6P9"},
+{id:13,name:"Silver-Plated Link Bracelet",cat:"Accessories",price:227,type:"Accessories",images:"images/acc/5b.png",url:"https://myntr.in/KrLtCR"},
+{id:14,name:"Silver-chain Bracelet",cat:"Accessories",price:199,type:"Accessories",images:"images/acc/6b.png",url:"https://myntr.in/OLyxb7"},
+{id:15,name:"Silver-Plated Bracelet",cat:"Accessories",price: 599,type:"Accessories",images:"images/acc/7b.png",url:"https://7myntr.in/RuwSPJ"},
+{id:16,name:"Silver-Plated Bracelet",cat:"Accessories",price: 125,type:"Accessories",images:"images/acc/8b.png",url:"https://fkrt.co/NxELk8"},
+{id:17,name:"Geometric Square Stone Pendant Chain Silver Locket Set",cat:"Accessories",price:47,type:"Accessories",images:"images/acc/9b.png",url:"https://fkrt.co/2VJb1Y"},
+{id:18,name:"Round Pendant Necklace for Men Chain Silver Locket Set",cat:"Accessories",price:133,type:"Accessories",images:"images/acc/10b.png",url:"https://fkrt.co/0JrXql"},
+{id:19,name:"Hexagram Star Pendant Chain Silver Locket Set",cat:"Accessories",price:139,type:"Accessories",images:"images/acc/11b.png",url:"https://fkrt.co/8b6FEH"},
+{id:20,name:"Spider Pendant Necklace for Men Silver Locket Set",cat:"Accessories",price:80,type:"Accessories",images:"images/acc/12b.png",url:"https://fkrt.co/4WRLj0"},
+{id:21,name:"Elegant Star Chain for Men Alloy Pendant",cat:"Accessories",price:162,type:"Accessories",images:"images/acc/13b.png",url:"https://fkrt.co/F0JulX"},
+{id:22,name:"Sterling Silver Cubic Zirconia Pendant",cat:"Accessories",price:125,type:"Accessories",images:"images/acc/14b.png",url:"https://fkrt.co/mmQuuL"},
+{id:23,name:"Hanuman Ji Pendant",cat:"Accessories",price:136,type:"Accessories",images:"images/acc/15b.png",url:"https://fkrt.co/GUGQRg"},
+{id:24,name:"Divine rudras Pendant",cat:"Accessories",price: 108,type:"Accessories",images:"images/acc/16b.png",url:"https://fkrt.co/hIAOzl"},
+
 ];
 
 
 
-let wishlist=[];
-try {
-  const storedWishlist=JSON.parse(localStorage.getItem("mickyfitsWishlist")||"[]");
-  wishlist=Array.isArray(storedWishlist) ? storedWishlist.filter(id=>Number.isInteger(id)) : [];
-} catch (error) {
-  wishlist=[];
-}
-let current=null;
+let wishlist=JSON.parse(localStorage.getItem("mickyfitsWishlist")||"[]"),current=null;
 const $=s=>document.querySelector(s), productsEl=$("#products"), modal=$("#modal"), side=$("#side");
 function visual(t,image){if(image)return`<img src="${image}" alt="Product image" style="width:100%;height:100%;object-fit:contain;border-radius:16px">`;if(t==="tee")return'<div class="tee"></div>';if(t==="shirt")return'<div class="shirt"></div>';if(t==="pants")return'<div class="pants"></div>';if(t==="white")return'<div class="tee" style="background:#eee"></div>';if(t==="denim")return'<div class="pants" style="background:#40556b"></div>';if(t==="overshirt")return'<div class="shirt" style="background:#292d31"></div>';if(t==="stone")return'<div class="pants" style="background:#9a927f"></div>';return'<div class="hoodie" style="width:115px;height:145px;background:#25282b;border-radius:12px;clip-path:polygon(25% 0,40% 11%,60% 11%,75% 0,100% 20%,82% 45%,75% 38%,75% 100%,25% 100%,25% 38%,18% 45%,0 20%)"></div>'}
 function save(){localStorage.setItem("mickyfitsWishlist",JSON.stringify(wishlist));updateWish()}
-function updateWish(){wishlist=wishlist.filter(id=>products.some(p=>p.id===id));$("#wishCount").textContent=wishlist.length;$("#wishItems").innerHTML=wishlist.length?wishlist.map(id=>{let p=products.find(x=>x.id===id);return`<div class="wishitem"><div class="mini">${visual(p.type,p.images)}</div><div><b>${p.name}</b><div style="color:#89929a;font-size:12px;margin:5px 0">₹${p.price.toLocaleString("en-IN")}</div><button class="navbtn openwish" data-id="${p.id}">View</button> <button class="navbtn remwish" data-id="${p.id}">Remove</button></div></div>`}).join(""):'<div class="empty">No saved products yet.</div>'}
-function render(cat="All", query=""){
-  const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
-  const compact = value => normalize(value).replace(/\s/g,"");
-  const terms = normalize(query).split(" ").filter(Boolean);
-  const filtered = products.filter(p => {
-    const categoryMatch = cat === "All" || p.cat === cat;
-    if (!categoryMatch) return false;
-    if (!terms.length) return true;
-    const searchable = normalize([p.name,p.cat,p.type,p.tag,p.product1Name,p.product2Name].filter(Boolean).join(" "));
-    const searchableCompact = compact(searchable);
-    return terms.every(term => searchable.includes(term) || searchableCompact.includes(term.replace(/\s/g,"")));
-  });
-  productsEl.innerHTML = filtered.length ? filtered.map(p=>`<article class="product tilt"><div class="visual openProduct" data-id="${p.id}">${visual(p.type,p.images)}<span class="eyebrow" style="position:absolute;top:11px;left:11px">${p.tag}</span></div><div class="info"><div class="row"><div><h3>${p.name}</h3><p>${p.cat}</p></div><button class="heart wish" data-id="${p.id}">${wishlist.includes(p.id)?"♥":"♡"}</button></div><div class="view"><b>₹${p.price.toLocaleString("en-IN")}</b><button class="miniBtn openProduct" data-id="${p.id}">VIEW PRODUCT</button></div></div></article>`).join("") : `<div class="empty" style="grid-column:1/-1;padding:32px 0">No products found${query ? ` for “${query.replace(/[&<>"']/g, "")}”` : " in this category"}. Try a product name or category such as bracelet, shirt, pants, or combo.</div>`;
-  tilt();
-}
+function updateWish(){$("#wishCount").textContent=wishlist.length;$("#wishItems").innerHTML=wishlist.length?wishlist.map(id=>{let p=products.find(x=>x.id===id);return`<div class="wishitem"><div class="mini">${visual(p.type,p.images)}</div><div><b>${p.name}</b><div style="color:#89929a;font-size:12px;margin:5px 0">₹${p.price.toLocaleString("en-IN")}</div><button class="navbtn openwish" data-id="${p.id}">View</button> <button class="navbtn remwish" data-id="${p.id}">Remove</button></div></div>`}).join(""):'<div class="empty">No saved products yet.</div>'}
+function render(cat="All"){productsEl.innerHTML=products.filter(p=>cat==="All"||p.cat===cat).map(p=>`<article class="product tilt"><div class="visual openProduct" data-id="${p.id}">${visual(p.type,p.images)}<span class="eyebrow" style="position:absolute;top:11px;left:11px">${p.tag}</span></div><div class="info"><div class="row"><div><h3>${p.name}</h3><p>${p.cat}</p></div><button class="heart wish" data-id="${p.id}">${wishlist.includes(p.id)?"♥":"♡"}</button></div><div class="view"><b>₹${p.price.toLocaleString("en-IN")}</b><button class="miniBtn openProduct" data-id="${p.id}">VIEW PRODUCT</button></div></div></article>`).join("");tilt()}
 function tilt(){document.querySelectorAll(".tilt").forEach(c=>{c.onmousemove=e=>{let r=c.getBoundingClientRect(),x=e.clientX/r.width-r.left/r.width-.5,y=e.clientY/r.height-r.top/r.height-.5;c.style.transform=`perspective(900px) rotateX(${y*-6}deg) rotateY(${x*8}deg)`};c.onmouseleave=()=>c.style.transform=""})}
 
 function openProduct(id){
@@ -315,20 +331,12 @@ function openProduct(id){
   $("#detailPrice").textContent="₹"+current.price.toLocaleString("en-IN");
   $("#affiliate").href=current.url;
 
-  if(current.cat==="Combo" && current.url2){
-    $("#affiliate").textContent="SHOP T-SHIRT ↗";
-  }else if(current.cat==="T-Shirts"){
-    $("#affiliate").textContent="SHOP T-SHIRT ↗";
-  }else if(current.cat==="Shirts"){
-    $("#affiliate").textContent="SHOP SHIRT ↗";
-  }else if(current.cat==="Pants"){
-    $("#affiliate").textContent="SHOP PANTS ↗";
-  }else if(current.cat==="Accessories"){
+  if(current.cat==="Accessories"){
     $("#affiliate").textContent="SHOP ↗";
-  }else if(current.cat==="Hoodies"){
-    $("#affiliate").textContent="SHOP HOODIE ↗";
+  }else if(current.cat==="Combo"&&current.url2){
+    $("#affiliate").textContent="SHOP T-SHIRT ↗";
   }else{
-    $("#affiliate").textContent="SHOP PRODUCT ↗";
+    $("#affiliate").textContent="SHOP T-SHIRT ↗";
   }
 
   const second=$("#affiliate2");
@@ -353,22 +361,7 @@ $("#closeDetail").onclick=()=>modal.classList.remove("open");modal.onclick=e=>{i
 $("#save").onclick=()=>current&&toggle(current.id)
 $("#wishlist").onclick=()=>{updateWish();side.classList.add("open")};$("#closeWish").onclick=()=>side.classList.remove("open");side.onclick=e=>{if(e.target===side)side.classList.remove("open")}
 $("#wishItems").onclick=e=>{let v=e.target.closest(".openwish"),r=e.target.closest(".remwish");if(v){side.classList.remove("open");openProduct(v.dataset.id)}if(r){wishlist=wishlist.filter(x=>x!==+r.dataset.id);save();render()}}
-$("#search").onclick=()=>{
-  const q=prompt("Search Mickyfits products by name, category, or tag");
-  if(q===null || !q.trim()) return;
-  document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x.dataset.cat==="All"));
-  render("All",q.trim());
-  location.hash="shop";
-  document.querySelector("#shop").scrollIntoView({behavior:"smooth",block:"start"});
-  const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
-  const terms=normalize(q).split(" ").filter(Boolean);
-  const count=products.filter(p=>{
-    const searchable=normalize([p.name,p.cat,p.type,p.tag,p.product1Name,p.product2Name].filter(Boolean).join(" "));
-    const compact=searchable.replace(/\s/g,"");
-    return terms.every(term=>searchable.includes(term)||compact.includes(term.replace(/\s/g,"")));
-  }).length;
-  if(count) toast(`${count} product${count===1?"":"s"} found`);
-}
+$("#search").onclick=()=>{let q=prompt("Search Mickyfits");if(!q)return;let p=products.find(x=>(x.name+" "+x.cat).toLowerCase().includes(q.toLowerCase()));if(p){location.hash="shop";setTimeout(()=>openProduct(p.id),300)}else toast("No matching product")}
 $("#email").onsubmit=e=>{e.preventDefault();toast("You're on the Mickyfits drop list.");e.target.reset()}
 render();updateWish();
 </script>
