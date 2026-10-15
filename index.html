@@ -263,7 +263,7 @@ const products=[
 {id:3,name:"Striped Shirt + Gurkha pant",cat:"Combo",price:317 + 650,type:"Combo",tag:"Combo / 03",images:"images/Combo/4.2.png",url:"https://fkrt.co/CCOABQ", url2:"https://fkrt.co/e9it0J", product1Name:"Striped shirt ",product1Price:317,product2Name:"Gurkha pant",product2Price:650},
 {id:4,name:"Straight Fit jean",cat:"Pants",price:406,type:"Pant",tag:"Zaysh/ 01",images:"images/pant/Zaysh 01.png",url:"https://fkrt.co/p62V5D"},
 {id:5,name:"Jump cut printed ",cat:"T-Shirts",price:357,type:"T-Shirts",tag:"FRISKE KNITS/ 01",images:"images/tshirt/3.png", url:"https://myntr.in/YHE7xZ"},
-{id:6,name:"Jump Cut Los Angeles",cat:"T-Shirts",price:409,type:"T-Shirt",tag:"FRISKE KNITS/ 02",images:"images/tshirt/4.png",url:"https://myntr.in/KCJzse"},
+{id:6,name:"Jump Cut Los Angeles",cat:"T-Shirts",price:409,type:"T-Shirt",tag:"FRISKE KNITS/ 02",images:"images/tshirt/4.png",url:" https://myntr.in/KCJzse"},
 {id:7,name:"Jump cut Henly Neck",cat:"T-Shirts",price:397,type:"T-Shirts",tag:"FRISKE KNITS / 03",images:"images/tshirt/2.png", url:"https://fkrt.co/wmUzas"},
 {id:8,name:"Jump Cut Polo collar",cat:"T-Shirts",price:330,type:"T-Shirts",tag:"FRISKE KNITS / 04",images:"images/tshirt/1.png",url:"https://myntr.in/GXf1WN"},
 {id:9,name:"Alloy Rhodium Bracelet",cat:"Accessories",price:167,type:"Accessories",tag:"Nidhi Emporium / 01",images:"images/acc/1b.png",url:"https://fkrt.co/UAimuN"},
@@ -278,33 +278,12 @@ const products=[
 
 
 
-let wishlist=[];
-try {
-  const storedWishlist=JSON.parse(localStorage.getItem("mickyfitsWishlist")||"[]");
-  wishlist=Array.isArray(storedWishlist) ? storedWishlist.filter(id=>Number.isInteger(id)) : [];
-} catch (error) {
-  wishlist=[];
-}
-let current=null;
+let wishlist=JSON.parse(localStorage.getItem("mickyfitsWishlist")||"[]"),current=null;
 const $=s=>document.querySelector(s), productsEl=$("#products"), modal=$("#modal"), side=$("#side");
 function visual(t,image){if(image)return`<img src="${image}" alt="Product image" style="width:100%;height:100%;object-fit:contain;border-radius:16px">`;if(t==="tee")return'<div class="tee"></div>';if(t==="shirt")return'<div class="shirt"></div>';if(t==="pants")return'<div class="pants"></div>';if(t==="white")return'<div class="tee" style="background:#eee"></div>';if(t==="denim")return'<div class="pants" style="background:#40556b"></div>';if(t==="overshirt")return'<div class="shirt" style="background:#292d31"></div>';if(t==="stone")return'<div class="pants" style="background:#9a927f"></div>';return'<div class="hoodie" style="width:115px;height:145px;background:#25282b;border-radius:12px;clip-path:polygon(25% 0,40% 11%,60% 11%,75% 0,100% 20%,82% 45%,75% 38%,75% 100%,25% 100%,25% 38%,18% 45%,0 20%)"></div>'}
 function save(){localStorage.setItem("mickyfitsWishlist",JSON.stringify(wishlist));updateWish()}
-function updateWish(){wishlist=wishlist.filter(id=>products.some(p=>p.id===id));$("#wishCount").textContent=wishlist.length;$("#wishItems").innerHTML=wishlist.length?wishlist.map(id=>{let p=products.find(x=>x.id===id);return`<div class="wishitem"><div class="mini">${visual(p.type,p.images)}</div><div><b>${p.name}</b><div style="color:#89929a;font-size:12px;margin:5px 0">₹${p.price.toLocaleString("en-IN")}</div><button class="navbtn openwish" data-id="${p.id}">View</button> <button class="navbtn remwish" data-id="${p.id}">Remove</button></div></div>`}).join(""):'<div class="empty">No saved products yet.</div>'}
-function render(cat="All", query=""){
-  const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
-  const compact = value => normalize(value).replace(/\s/g,"");
-  const terms = normalize(query).split(" ").filter(Boolean);
-  const filtered = products.filter(p => {
-    const categoryMatch = cat === "All" || p.cat === cat;
-    if (!categoryMatch) return false;
-    if (!terms.length) return true;
-    const searchable = normalize([p.name,p.cat,p.type,p.tag,p.product1Name,p.product2Name].filter(Boolean).join(" "));
-    const searchableCompact = compact(searchable);
-    return terms.every(term => searchable.includes(term) || searchableCompact.includes(term.replace(/\s/g,"")));
-  });
-  productsEl.innerHTML = filtered.length ? filtered.map(p=>`<article class="product tilt"><div class="visual openProduct" data-id="${p.id}">${visual(p.type,p.images)}<span class="eyebrow" style="position:absolute;top:11px;left:11px">${p.tag}</span></div><div class="info"><div class="row"><div><h3>${p.name}</h3><p>${p.cat}</p></div><button class="heart wish" data-id="${p.id}">${wishlist.includes(p.id)?"♥":"♡"}</button></div><div class="view"><b>₹${p.price.toLocaleString("en-IN")}</b><button class="miniBtn openProduct" data-id="${p.id}">VIEW PRODUCT</button></div></div></article>`).join("") : `<div class="empty" style="grid-column:1/-1;padding:32px 0">No products found${query ? ` for “${query.replace(/[&<>"']/g, "")}”` : " in this category"}. Try a product name or category such as bracelet, shirt, pants, or combo.</div>`;
-  tilt();
-}
+function updateWish(){$("#wishCount").textContent=wishlist.length;$("#wishItems").innerHTML=wishlist.length?wishlist.map(id=>{let p=products.find(x=>x.id===id);return`<div class="wishitem"><div class="mini">${visual(p.type,p.images)}</div><div><b>${p.name}</b><div style="color:#89929a;font-size:12px;margin:5px 0">₹${p.price.toLocaleString("en-IN")}</div><button class="navbtn openwish" data-id="${p.id}">View</button> <button class="navbtn remwish" data-id="${p.id}">Remove</button></div></div>`}).join(""):'<div class="empty">No saved products yet.</div>'}
+function render(cat="All"){productsEl.innerHTML=products.filter(p=>cat==="All"||p.cat===cat).map(p=>`<article class="product tilt"><div class="visual openProduct" data-id="${p.id}">${visual(p.type,p.images)}<span class="eyebrow" style="position:absolute;top:11px;left:11px">${p.tag}</span></div><div class="info"><div class="row"><div><h3>${p.name}</h3><p>${p.cat}</p></div><button class="heart wish" data-id="${p.id}">${wishlist.includes(p.id)?"♥":"♡"}</button></div><div class="view"><b>₹${p.price.toLocaleString("en-IN")}</b><button class="miniBtn openProduct" data-id="${p.id}">VIEW PRODUCT</button></div></div></article>`).join("");tilt()}
 function tilt(){document.querySelectorAll(".tilt").forEach(c=>{c.onmousemove=e=>{let r=c.getBoundingClientRect(),x=e.clientX/r.width-r.left/r.width-.5,y=e.clientY/r.height-r.top/r.height-.5;c.style.transform=`perspective(900px) rotateX(${y*-6}deg) rotateY(${x*8}deg)`};c.onmouseleave=()=>c.style.transform=""})}
 
 function openProduct(id){
@@ -315,20 +294,12 @@ function openProduct(id){
   $("#detailPrice").textContent="₹"+current.price.toLocaleString("en-IN");
   $("#affiliate").href=current.url;
 
-  if(current.cat==="Combo" && current.url2){
-    $("#affiliate").textContent="SHOP T-SHIRT ↗";
-  }else if(current.cat==="T-Shirts"){
-    $("#affiliate").textContent="SHOP T-SHIRT ↗";
-  }else if(current.cat==="Shirts"){
-    $("#affiliate").textContent="SHOP SHIRT ↗";
-  }else if(current.cat==="Pants"){
-    $("#affiliate").textContent="SHOP PANTS ↗";
-  }else if(current.cat==="Accessories"){
+  if(current.cat==="Accessories"){
     $("#affiliate").textContent="SHOP ↗";
-  }else if(current.cat==="Hoodies"){
-    $("#affiliate").textContent="SHOP HOODIE ↗";
+  }else if(current.cat==="Combo"&&current.url2){
+    $("#affiliate").textContent="SHOP T-SHIRT ↗";
   }else{
-    $("#affiliate").textContent="SHOP PRODUCT ↗";
+    $("#affiliate").textContent="SHOP T-SHIRT ↗";
   }
 
   const second=$("#affiliate2");
@@ -353,22 +324,7 @@ $("#closeDetail").onclick=()=>modal.classList.remove("open");modal.onclick=e=>{i
 $("#save").onclick=()=>current&&toggle(current.id)
 $("#wishlist").onclick=()=>{updateWish();side.classList.add("open")};$("#closeWish").onclick=()=>side.classList.remove("open");side.onclick=e=>{if(e.target===side)side.classList.remove("open")}
 $("#wishItems").onclick=e=>{let v=e.target.closest(".openwish"),r=e.target.closest(".remwish");if(v){side.classList.remove("open");openProduct(v.dataset.id)}if(r){wishlist=wishlist.filter(x=>x!==+r.dataset.id);save();render()}}
-$("#search").onclick=()=>{
-  const q=prompt("Search Mickyfits products by name, category, or tag");
-  if(q===null || !q.trim()) return;
-  document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x.dataset.cat==="All"));
-  render("All",q.trim());
-  location.hash="shop";
-  document.querySelector("#shop").scrollIntoView({behavior:"smooth",block:"start"});
-  const normalize = value => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
-  const terms=normalize(q).split(" ").filter(Boolean);
-  const count=products.filter(p=>{
-    const searchable=normalize([p.name,p.cat,p.type,p.tag,p.product1Name,p.product2Name].filter(Boolean).join(" "));
-    const compact=searchable.replace(/\s/g,"");
-    return terms.every(term=>searchable.includes(term)||compact.includes(term.replace(/\s/g,"")));
-  }).length;
-  if(count) toast(`${count} product${count===1?"":"s"} found`);
-}
+$("#search").onclick=()=>{let q=prompt("Search Mickyfits");if(!q)return;let p=products.find(x=>(x.name+" "+x.cat).toLowerCase().includes(q.toLowerCase()));if(p){location.hash="shop";setTimeout(()=>openProduct(p.id),300)}else toast("No matching product")}
 $("#email").onsubmit=e=>{e.preventDefault();toast("You're on the Mickyfits drop list.");e.target.reset()}
 render();updateWish();
 </script>
