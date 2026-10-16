@@ -462,9 +462,9 @@ button, .cat, .miniBtn, .navbtn { touch-action: manipulation; }
 </div>
 </div></section>
 
-<section id="shop"><div class="wrap"><div class="head"><div><div class="eyebrow">01 / SHOP</div><h2>THE<br>COLLECTION.</h2></div><p>Browse Mickyfits' curated fashion catalog. Click a product to see its details, save it, or continue to the retailer using the affiliate link.</p></div>
-<div class="cats" id="categories" role="group" aria-label="Choose a product category"><button class="cat" data-cat="T-Shirts" aria-pressed="false">T-Shirts</button><button class="cat" data-cat="Shirts" aria-pressed="false">Shirts</button><button class="cat" data-cat="Pants" aria-pressed="false">Pants</button><button class="cat" data-cat="Sweatshirts" aria-pressed="false">Sweatshirts</button><button class="cat" data-cat="Accessories" aria-pressed="false">Accessories</button><button class="cat" data-cat="Shoes" aria-pressed="false">Shoes</button><button class="cat" data-cat="Combo" aria-pressed="false">Combo</button></div>
-<div class="category-prompt" id="categoryPrompt"><strong>Choose your style.</strong> Select a category above to explore the collection.</div>
+<section id="shop"><div class="wrap"><div class="head"><div><div class="eyebrow">01 / SHOP</div><h2>THE<br>COLLECTION</h2></div><p>Browse Mickyfits' curated fashion catalog. Click a product to see its details, save it, or continue to the retailer using the affiliate link.</p></div>
+<div class="cats" id="categories" role="group" aria-label="Choose a product category"><button class="cat" data-cat="Trending Outfits" aria-pressed="false">Trending Outfits</button><button class="cat" data-cat="T-Shirts" aria-pressed="false">T-Shirts</button><button class="cat" data-cat="Shirts" aria-pressed="false">Shirts</button><button class="cat" data-cat="Pants" aria-pressed="false">Pants</button><button class="cat" data-cat="Sweatshirts" aria-pressed="false">Sweatshirts</button><button class="cat" data-cat="Accessories" aria-pressed="false">Accessories</button><button class="cat" data-cat="Shoes" aria-pressed="false">Shoes</button><button class="cat" data-cat="Combo" aria-pressed="false">Combo</button></div>
+<div class="category-prompt" id="categoryPrompt"><strong>Choose your style</strong> Select a category above to explore the collection</div>
 <div class="price-filter" id="priceFilter" hidden aria-label="Filter products by price">
   <div class="price-filter-top"><div><span class="eyebrow">REFINE YOUR FINDS</span><h3>Price range</h3></div><button type="button" id="resetPrice" class="price-reset">Reset</button></div>
   <div class="price-values"><label for="minPrice">Min <strong id="minPriceLabel">₹0</strong></label><label for="maxPrice">Max <strong id="maxPriceLabel">₹5,000</strong></label></div>
@@ -514,6 +514,29 @@ const products=[
 {id:22,name:"Sterling Silver Cubic Zirconia Pendant",cat:"Accessories",price:125,type:"Accessories",tag:"",images:"images/acc/14b.png",url:"https://fkrt.co/mmQuuL"},
 {id:23,name:"Hanuman Ji Pendant",cat:"Accessories",price:136,type:"Accessories",tag:"",images:"images/acc/15b.png",url:"https://fkrt.co/GUGQRg"},
 {id:24,name:"Divine rudras Pendant",cat:"Accessories",price: 108,type:"Accessories",tag:"",images:"images/acc/16b.png",url:"https://fkrt.co/hIAOzl"},
+{id:25,name:"Silver plated Hanuman bajrangbali balaji locket",cat:"Accessories",price:127,type:"Accessories",tag:"",images:"images/acc/17b.png",url:"https://fkrt.co/wOEPAE"},
+{id:26,name:"Spider Pendant",cat:"Accessories",price:154,type:"Accessories",tag:"",images:"images/acc/18b.png",url:"https://fkrt.co/F9iEvE"},
+{id:27,name:"Combo geometric Stainless Steel Pendant Set",cat:"Accessories",price:123,type:"Accessories",tag:"",images:"images/acc/19b.png",url:"https://fkrt.co/ibqWPE"},
+{id:28,name:"Sleek Silver Star Necklace Alloy Pendant",cat:"Accessories",price:162,type:"Accessories",tag:"",images:"images/acc/20b.png",url:"https://fkrt.co/QJ7JZC"},
+{id:29,name:"New spider Silver Stainless Steel Pendant",cat:"T-Shirts",price:144,type:"T-Shirts",tag:"",images:"images/tshirt/21b.png",url:"https://fkrt.co/ZYJorK"},
+{id:30,name:"Spider Design Stainless Steel Pendant",cat:"Accessories",price:68,type:"Accessories",tag:"",images:"images/acc/22b.png",url:"https://fkrt.co/pgvgfY"},
+{id:31,name:"Men chain Alloy Locket Set",cat:"Accessories",price:53,type:"Accessories",tag:"",images:"images/acc/23b.png",url:"https://fkrt.co/Jv7piG"},{id:32,name:"Stainless Steel Jesus Cross Pendant",cat:"Accessories",price:82,type:"Accessories",tag:"",images:"images/acc/24b.png",url:"https://fkrt.co/Yinnlh"},
+{id:33,name:"boys Rhodium Alloy Locket Set",cat:"Accessories",price:159,type:"Accessories",tag:"",images:"images/acc/25b.png",url:"https://fkrt.co/RoFeO4"},
+{id:34,name:"Vintage Blue Evil Eye & Skull Gothic Silver Stainless Steel Pendant",cat:"Accessories",price:150,type:"Accessories",tag:"",images:"images/acc/26b.png",url:"https://fkrt.co/qXeQOH"},
+{id:35,name:"Three-Ring Necklace with Box Chain Sterling Silver Cubic Zirconia Stainless Steel Pendant Set",cat:"T-Shirts",price:52,type:"T-Shirts",tag:"",images:"images/tshirt/27b.png",url:"https://fkrt.co/j7BY6D"},
+{id:36,name:"Lockets Rhodium Alloy Pendant",cat:"Accessories",price:151,type:"Accessories",tag:"",images:"images/acc/28.png",url:"https://fkrt.co/IMWN81"},
+{id:37,name:"Headphone Locket Rhodium Stainless Steel",cat:"Accessories",price:144,type:"Accessories",tag:"",images:"images/acc/28b.png",url:"https://fkrt.co/XNKg1I"},
+{id:38,name:"Smily chain Rhodium Alloy Pendant",cat:"Accessories",price:134,type:"Accessories",tag:"",images:"images/acc/29.png",url:"https://fkrt.co/JyQsGb"},
+{id:39,name:"Stunning Trendy Black Arrow Pendant",cat:"Accessories",price:80,type:"Accessories",tag:"",images:"images/acc/29b.png",url:"https://fkrt.co/qg4onM"},
+{id:32,name:"Stainless Steel Jesus Cross Pendant",cat:"Accessories",price:82,type:"Accessories",tag:"",images:"images/acc/24b.png",url:"https://fkrt.co/Yinnlh"},
+{id:33,name:"boys Rhodium Alloy Locket Set",cat:"Accessories",price:159,type:"Accessories",tag:"",images:"images/acc/25b.png",url:"https://fkrt.co/RoFeO4"},
+{id:34,name:"Vintage Blue Evil Eye & Skull Gothic Silver Stainless Steel Pendant",cat:"Accessories",price:150,type:"Accessories",tag:"",images:"images/acc/26b.png",url:"https://fkrt.co/qXeQOH"},
+{id:35,name:"Three-Ring Necklace with Box Chain Sterling Silver Cubic Zirconia Stainless Steel Pendant Set",cat:"T-Shirts",price:52,type:"T-Shirts",tag:"",images:"images/tshirt/27b.png",url:"https://fkrt.co/j7BY6D"},
+{id:36,name:"Lockets Rhodium Alloy Pendant",cat:"Accessories",price:151,type:"Accessories",tag:"",images:"images/acc/28.png",url:"https://fkrt.co/IMWN81"},
+{id:37,name:"Headphone Locket Rhodium Stainless Steel",cat:"Accessories",price:144,type:"Accessories",tag:"",images:"images/acc/28b.png",url:"https://fkrt.co/XNKg1I"},
+{id:38,name:"Smily chain Rhodium Alloy Pendant",cat:"Accessories",price:134,type:"Accessories",tag:"",images:"images/acc/29.png",url:"https://fkrt.co/JyQsGb"},
+{id:39,name:"Stunning Trendy Black Arrow Pendant",cat:"Accessories",price:80,type:"Accessories",tag:"",images:"images/acc/29b.png",url:"https://fkrt.co/qg4onM"}
+
 
 ];
 
