@@ -530,9 +530,37 @@ const products=[
 {id:38,name:"Smily chain Rhodium Alloy Pendant",cat:"Accessories",price:134,type:"Accessories",tag:"",images:"images/acc/30b.png",url:"https://fkrt.co/JyQsGb"},
 {id:39,name:"Stunning Trendy Black Arrow Pendant",cat:"Accessories",price:80,type:"Accessories",tag:"",images:"images/acc/31b.png",url:"https://fkrt.co/qg4onM"},
 {id:40,name:"Black Onyx Octagon Inlay Square and Trident Pendant",cat:"Accessories",price:154,type:"Accessories",tag:"",images:"images/acc/32b.png",url:"https://fkrt.co/e3m0mL"}
+{id:41,name:"DripStyle Printed Drop Shoulder T-Shirt",cat:"T-Shirts",price:223,type:"T-Shirt",tag:"",images:"images/tshirt/5.png",url:"https://fkrt.co/kBlzyp"}
+{id:42,name:"Funky fashion Printed Cotton Blend T-Shirt",cat:"T-Shirts",price:208,type:"T-Shirts",tag:"",images:"images/tshirt/6.png",url:"https://fkrt.co/G78Xdf"}
+{id:43,name:"Relaxed Fit Spider Man Graphic Printed",cat:"T-Shirts",price:389,type:"T-Shirts",tag:"",images:"images/tshirt/7.png",url:"https://myntr.in/w3ADNf"},
+{id:44,name:"Drop-Shoulder Sleeves Pure Cotton Relaxed Fit T-Shirt",cat:"T-Shirts",price:335,type:"T-Shirts",tag:"",images:"images/tshirt/8.png",url:"https://myntr.in/3QluYr"},
+{id:45,name:"Drop shoulder Graphic Print T-Shirt",cat:"T-Shirts",price:170,type:"T-Shirts",tag:"",images:"images/tshirt/9.png",url:"https://fkrt.co/DsEFJ7"},
+{id:46,name:"Women Drop-Shoulder Sleeves T-shirt",cat:"T-Shirts",price:402,type:"T-Shirts",tag:"",images:"images/tshirt/10.png",url:"https://myntr.in/AfBNEL"}
 
 
 ];
+
+const approvedCategories=["Trending Outfits","T-Shirts","Shirts","Pants","Sweatshirts","Accessories","Shoes","Combo"];
+async function loadApprovedProducts(){
+  try{
+    const response=await fetch("approved-products.json",{cache:"no-store"});
+    if(!response.ok)return;
+    const approved=await response.json();
+    if(!Array.isArray(approved))return;
+    for(const p of approved){
+      if(!p||!Number.isSafeInteger(p.id)||p.id<1||products.some(existing=>existing.id===p.id))continue;
+      if(typeof p.name!=="string"||!p.name.trim()||!approvedCategories.includes(p.cat)||!Number.isFinite(p.price)||p.price<0)continue;
+      if(typeof p.type!=="string"||!p.type.trim()||typeof p.tag!=="string"||typeof p.images!=="string"||!/^images\/(?!.*(?:^|\/)\.\.(?:\/|$))[^?#]+$/i.test(p.images))continue;
+      if(typeof p.url!=="string"||!/^https?:\/\//i.test(p.url))continue;
+      try{
+        const image=await fetch(p.images,{cache:"no-store"});
+        if(!image.ok||/^text\/html/i.test(image.headers.get("content-type")||""))continue;
+      }catch{continue;}
+      products.push({id:p.id,name:p.name,cat:p.cat,price:p.price,type:p.type,tag:p.tag,images:p.images,url:p.url});
+    }
+  }catch{}
+}
+const approvedProductsReady=loadApprovedProducts();
 
 
 
@@ -578,30 +606,31 @@ function openProduct(id){
 function toggle(id){id=+id;wishlist=wishlist.includes(id)?wishlist.filter(x=>x!==id):[...wishlist,id];save();render(document.querySelector(".cat.active")?.dataset.cat||"T-Shirts");if(current?.id===id)$("#save").textContent=wishlist.includes(id)?"♥ SAVED TO WISHLIST":"♡ SAVE TO WISHLIST"}
 function toast(s){let t=$("#toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1700)}
 productsEl.onclick=e=>{let o=e.target.closest(".openProduct"),w=e.target.closest(".wish");if(o)openProduct(o.dataset.id);else if(w)toggle(w.dataset.id)}
-$("#categories").onclick=e=>{let b=e.target.closest(".cat");if(!b)return;document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));b.classList.add("active");b.setAttribute("aria-pressed","true");document.querySelectorAll(".cat").forEach(x=>{if(x!==b)x.setAttribute("aria-pressed","false")});$("#priceFilter").hidden=false;render(b.dataset.cat);productsEl.hidden=false;$("#categoryPrompt").hidden=true;history.replaceState(null,"",`#shop-${b.dataset.cat.toLowerCase().replace(/[^a-z0-9]+/g,"-")}`);document.querySelector("#shop").scrollIntoView({behavior:"smooth",block:"start"})}
+$("#categories").onclick=async e=>{let b=e.target.closest(".cat");if(!b)return;await approvedProductsReady;document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));b.classList.add("active");b.setAttribute("aria-pressed","true");document.querySelectorAll(".cat").forEach(x=>{if(x!==b)x.setAttribute("aria-pressed","false")});$("#priceFilter").hidden=false;render(b.dataset.cat);productsEl.hidden=false;$("#categoryPrompt").hidden=true;history.replaceState(null,"",`#shop-${b.dataset.cat.toLowerCase().replace(/[^a-z0-9]+/g,"-")}`);document.querySelector("#shop").scrollIntoView({behavior:"smooth",block:"start"})}
 $("#closeDetail").onclick=()=>modal.classList.remove("open");modal.onclick=e=>{if(e.target===modal)modal.classList.remove("open")}
 $("#save").onclick=()=>current&&toggle(current.id)
-$("#wishlist").onclick=()=>{updateWish();side.classList.add("open")};$("#closeWish").onclick=()=>side.classList.remove("open");side.onclick=e=>{if(e.target===side)side.classList.remove("open")}
+$("#wishlist").onclick=async()=>{await approvedProductsReady;updateWish();side.classList.add("open")};$("#closeWish").onclick=()=>side.classList.remove("open");side.onclick=e=>{if(e.target===side)side.classList.remove("open")}
 $("#wishItems").onclick=e=>{let v=e.target.closest(".openwish"),r=e.target.closest(".remwish");if(v){side.classList.remove("open");openProduct(v.dataset.id)}if(r){wishlist=wishlist.filter(x=>x!==+r.dataset.id);save();render()}}
 const searchPanel=$("#searchPanel"),searchInput=$("#productSearch"),searchResults=$("#searchResults"),searchHint=$("#searchHint");
 function normalizeQuery(v){return v.toLowerCase().replace(/[^a-z0-9\s-]/g," ").replace(/\s+/g," ").trim()}
 function findProducts(query){const q=normalizeQuery(query);if(!q)return shuffled(products).slice(0,5);const words=q.split(" ").filter(Boolean);return products.map(p=>{const hay=normalizeQuery([p.name,p.cat,p.type,p.tag||"",p.product1Name||"",p.product2Name||""].join(" "));let score=0;for(const w of words){if(hay.includes(w))score+=hay.split(" ").some(token=>token===w)?5:2;}if(normalizeQuery(p.name)===q)score+=12;return{p,score}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.p.price-b.p.price).slice(0,7).map(x=>x.p)}
-function showSearchResults(){const q=searchInput.value;const matches=findProducts(q);searchHint.textContent=q.trim()?`${matches.length} matching product${matches.length===1?"":"s"}`:"Popular picks from the Mickyfits collection";searchResults.innerHTML=matches.length?matches.map(p=>`<button class="search-result" type="button" data-id="${p.id}"><img src="${p.images}" alt=""><span class="search-result-copy"><strong>${p.name}</strong><small>${p.cat}</small></span><span class="search-result-price">₹${p.price.toLocaleString("en-IN")}</span></button>`).join(""):'<div class="search-empty">No matches yet. Try a category like “pants”, “shirt”, “sweatshirt”, “combo” or “bracelet”.</div>'}
-function openSearch(){searchPanel.classList.add("open");searchPanel.setAttribute("aria-hidden","false");showSearchResults();setTimeout(()=>searchInput.focus(),30)}
+async function showSearchResults(){await approvedProductsReady;const q=searchInput.value;const matches=findProducts(q);searchHint.textContent=q.trim()?`${matches.length} matching product${matches.length===1?"":"s"}`:"Popular picks from the Mickyfits collection";searchResults.innerHTML=matches.length?matches.map(p=>`<button class="search-result" type="button" data-id="${p.id}"><img src="${p.images}" alt=""><span class="search-result-copy"><strong>${p.name}</strong><small>${p.cat}</small></span><span class="search-result-price">₹${p.price.toLocaleString("en-IN")}</span></button>`).join(""):'<div class="search-empty">No matches yet. Try a category like “pants”, “shirt”, “sweatshirt”, “combo” or “bracelet”.</div>'}
+async function openSearch(){searchPanel.classList.add("open");searchPanel.setAttribute("aria-hidden","false");await showSearchResults();setTimeout(()=>searchInput.focus(),30)}
 function closeSearch(){searchPanel.classList.remove("open");searchPanel.setAttribute("aria-hidden","true")}
 $("#search").onclick=()=>searchPanel.classList.contains("open")?closeSearch():openSearch();
 $("#closeSearch").onclick=closeSearch;
 searchInput.addEventListener("input",showSearchResults);
-searchResults.onclick=e=>{const result=e.target.closest(".search-result");if(!result)return;const p=products.find(x=>x.id===+result.dataset.id);if(!p)return;closeSearch();const categoryButton=document.querySelector(`.cat[data-cat="${p.cat}"]`);if(categoryButton){document.querySelectorAll(".cat").forEach(x=>{x.classList.toggle("active",x===categoryButton);x.setAttribute("aria-pressed",x===categoryButton?"true":"false")});$("#priceFilter").hidden=false;render(p.cat);productsEl.hidden=false;$("#categoryPrompt").hidden=true}location.hash="shop";setTimeout(()=>openProduct(p.id),150)};
+searchResults.onclick=async e=>{await approvedProductsReady;const result=e.target.closest(".search-result");if(!result)return;const p=products.find(x=>x.id===+result.dataset.id);if(!p)return;closeSearch();const categoryButton=document.querySelector(`.cat[data-cat="${p.cat}"]`);if(categoryButton){document.querySelectorAll(".cat").forEach(x=>{x.classList.toggle("active",x===categoryButton);x.setAttribute("aria-pressed",x===categoryButton?"true":"false")});$("#priceFilter").hidden=false;render(p.cat);productsEl.hidden=false;$("#categoryPrompt").hidden=true}location.hash="shop";setTimeout(()=>openProduct(p.id),150)};
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSearch();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch()}});
 document.addEventListener("click",e=>{if(searchPanel.classList.contains("open")&&!searchPanel.contains(e.target)&&!$("#search").contains(e.target))closeSearch()});
 $("#email").onsubmit=e=>{e.preventDefault();toast("You're on the Mickyfits drop list.");e.target.reset()}
 const minPrice=$("#minPrice"),maxPrice=$("#maxPrice");
-const priceCeiling=Math.ceil(Math.max(...products.map(p=>p.price),5000)/100)*100;
+let priceCeiling=Math.ceil(Math.max(...products.map(p=>p.price),5000)/100)*100;
 [minPrice,maxPrice].forEach(el=>{el.max=priceCeiling});maxPrice.value=priceCeiling;$("#maxPriceLabel").textContent="₹"+priceCeiling.toLocaleString("en-IN");
+approvedProductsReady.then(()=>{priceCeiling=Math.ceil(Math.max(...products.map(p=>p.price),5000)/100)*100;[minPrice,maxPrice].forEach(el=>{el.max=priceCeiling});maxPrice.value=priceCeiling;$("#maxPriceLabel").textContent="₹"+priceCeiling.toLocaleString("en-IN");updateWish();});
 function syncPriceFilter(changed){let min=Number(minPrice.value),max=Number(maxPrice.value);if(min>max){if(changed===minPrice){max=minPrice.value;maxPrice.value=max}else{min=maxPrice.value;minPrice.value=min}}$("#minPriceLabel").textContent="₹"+Number(minPrice.value).toLocaleString("en-IN");$("#maxPriceLabel").textContent="₹"+Number(maxPrice.value).toLocaleString("en-IN");const active=document.querySelector(".cat.active");if(active)render(active.dataset.cat)}
 minPrice.addEventListener("input",()=>syncPriceFilter(minPrice));maxPrice.addEventListener("input",()=>syncPriceFilter(maxPrice));
 $("#resetPrice").addEventListener("click",()=>{minPrice.value=0;maxPrice.value=priceCeiling;syncPriceFilter(maxPrice)});
-productsEl.innerHTML="";productsEl.hidden=true;$("#priceFilter").hidden=true;$("#categoryPrompt").hidden=false;updateWish();
+productsEl.innerHTML="";productsEl.hidden=true;$("#priceFilter").hidden=true;$("#categoryPrompt").hidden=false;
 </script>
 </body></html>
